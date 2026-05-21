@@ -1,0 +1,91 @@
+---
+const photos = [
+  {
+    title: 'Interno',
+    src: 'https://lh3.googleusercontent.com/p/AF1QipPnvRpHPVVwhPYlz-44Tg3d_hzZLn04NEADUM7C=s1360-w1360-h1020-rw',
+    alt: 'Interno del ristorante Cielo Azzurro',
+  },
+  {
+    title: 'Dehor',
+    src: 'https://lh3.googleusercontent.com/p/AF1QipOsPwcVhq_86YBVWnHe1OFD_P1Uxcd03_5whLIj=s1360-w1360-h1020-rw',
+    alt: 'Dehor esterno del ristorante Cielo Azzurro',
+  },
+];
+---
+<section id="galleria" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="gallery-header">
+      <p class="section-label reveal">Atmosfera</p>
+      <h2 class="section-title reveal d1" id="gallery-title">
+        Interno e <span>dehor</span>
+      </h2>
+      <div class="gold-line reveal d2"></div>
+      <p class="section-desc reveal d2">
+        Due scorci del ristorante per respirare l'ambiente prima di venire a trovarci.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      {photos.map((photo, i) => (
+        <figure class={`gallery-card reveal d${(i % 2) + 1}`}>
+          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+          <figcaption>{photo.title}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #galleria {
+    background: var(--bg);
+  }
+
+  .gallery-header {
+    max-width: 620px;
+    margin-bottom: 44px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .gallery-card {
+    margin: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.38);
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-card figcaption {
+    padding: 12px 16px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--cream);
+    border-top: 1px solid var(--border);
+    background: rgba(9, 9, 15, 0.7);
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-card img {
+      height: 300px;
+    }
+  }
+</style>

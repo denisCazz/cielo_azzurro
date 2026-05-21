@@ -1,0 +1,205 @@
+---
+const categories = [
+  {
+    icon: '🥟',
+    name: 'Antipasti',
+    desc: 'Stuzzichini caldi e freddi per iniziare al meglio',
+    items: [
+      { name: 'Involtino Primavera',              price: '3,00€', tag: 'Veg' },
+      { name: 'Nuvolette di Drago',               price: '2,00€', tag: 'Veg' },
+      { name: 'Involtini Speciali Carne e Verdure',price: '4,00€', tag: '' },
+      { name: 'Ravioli al Vapore (Dim Sum)',       price: '4,50€', tag: '' },
+      { name: 'Gamberi Fritti Croccanti',          price: '5,00€', tag: '' },
+    ],
+  },
+  {
+    icon: '🍣',
+    name: 'Sushi & Sashimi',
+    desc: 'Pesce fresco selezionato e preparato con cura artigianale',
+    items: [
+      { name: 'Salmon Nigiri (2 pz)',  price: '4,50€', tag: 'Top' },
+      { name: 'Tuna Nigiri (2 pz)',    price: '5,00€', tag: '' },
+      { name: 'California Roll (8 pz)',price: '7,00€', tag: '' },
+      { name: 'Spicy Salmon Roll',     price: '7,50€', tag: 'Spicy' },
+      { name: 'Sashimi Misto (12 pz)', price: '14,00€',tag: 'Top' },
+    ],
+  },
+  {
+    icon: '🍜',
+    name: 'Piatti Principali',
+    desc: 'Ricette tradizionali cinesi con ingredienti di prima scelta',
+    items: [
+      { name: 'Riso alla Cantonese',       price: '8,00€',  tag: 'Veg' },
+      { name: 'Pollo alle Mandorle',       price: '10,00€', tag: '' },
+      { name: 'Maiale in Agrodolce',       price: '11,00€', tag: '' },
+      { name: 'Gamberi con Verdure',       price: '13,00€', tag: '' },
+      { name: 'Anatra alla Pechino',       price: '16,00€', tag: 'Chef' },
+    ],
+  },
+  {
+    icon: '🍲',
+    name: 'Zuppe & Noodles',
+    desc: "Brodi aromatici e noodles freschi per riscaldare l'anima",
+    items: [
+      { name: 'Zuppa di Wonton',       price: '6,00€', tag: '' },
+      { name: 'Ramen Tonkotsu',        price: '11,00€',tag: 'Top' },
+      { name: 'Soba al Miso',          price: '10,00€',tag: 'Veg' },
+      { name: 'Udon con Gamberi',      price: '12,00€',tag: '' },
+      { name: 'Zuppa Piccante Tofu',   price: '8,50€', tag: 'Spicy' },
+    ],
+  },
+];
+
+const tagColors = {
+  'Veg':   { bg: 'rgba(39,174,96,.15)',  color: '#27ae60' },
+  'Top':   { bg: 'rgba(58,149,229,.18)', color: '#3A95E5' },
+  'Spicy': { bg: 'rgba(181,37,37,.18)',  color: '#D63031' },
+  'Chef':  { bg: 'rgba(155,89,182,.18)', color: '#9b59b6' },
+};
+---
+<section id="cucina" aria-labelledby="menu-title">
+  <div class="container">
+    <div class="menu-header">
+      <p class="section-label reveal">Il nostro menu</p>
+      <h2 class="section-title reveal d1" id="menu-title">
+        Sapori <span>autentici</span>
+      </h2>
+      <div class="gold-line reveal d2"></div>
+      <p class="section-desc reveal d2">
+        Un viaggio culinario tra Cina e Giappone: dai classici involtini alle creazioni sushi,
+        dai brodi aromatici ai piatti della tradizione. Ogni piatto è una storia.
+      </p>
+    </div>
+
+    <div class="categories-grid">
+      {categories.map((cat, i) => (
+        <div class={`cat-card reveal d${(i%4)+1}`}>
+          <div class="cat-header">
+            <span class="cat-icon" aria-hidden="true">{cat.icon}</span>
+            <div>
+              <h3 class="cat-name">{cat.name}</h3>
+              <p class="cat-desc">{cat.desc}</p>
+            </div>
+          </div>
+          <ul class="items-list" role="list">
+            {cat.items.map(item => (
+              <li class="menu-item">
+                <div class="item-left">
+                  <span class="item-name">{item.name}</span>
+                  {item.tag && (
+                    <span
+                      class="item-tag"
+                      style={`background:${tagColors[item.tag]?.bg};color:${tagColors[item.tag]?.color}`}
+                    >{item.tag}</span>
+                  )}
+                </div>
+                <span class="item-price">{item.price}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="menu-footer reveal">
+      <p>Menu completo disponibile in ristorante · Prezzi indicativi, possono variare</p>
+      <a href="tel:+393394195587" class="btn btn-outline">
+        Chiama per info
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  #cucina { background: var(--bg); }
+
+  .menu-header {
+    max-width: 620px;
+    margin-bottom: 64px;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .cat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: border-color var(--trans), transform var(--trans);
+  }
+  .cat-card:hover {
+    border-color: rgba(58,149,229,.45);
+    transform: translateY(-4px);
+  }
+
+  .cat-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; }
+  .cat-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .cat-desc { font-size: .83rem; color: var(--muted); line-height: 1.5; }
+
+  .items-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .item-left { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .item-name {
+    font-size: .92rem;
+    color: rgba(244,239,230,.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .item-tag {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: 2px 7px;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+  .item-price {
+    font-family: 'Cinzel', serif;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .menu-footer {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .menu-footer p { font-size: .85rem; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .categories-grid { grid-template-columns: 1fr; }
+  }
+</style>
+

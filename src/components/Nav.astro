@@ -1,0 +1,167 @@
+﻿---
+const links = [
+  { href: '#chi-siamo', label: 'Chi siamo' },
+  { href: '#cucina',    label: 'Cucina' },
+  { href: '#ayce',      label: 'All You Can Eat' },
+  { href: '#orari',     label: 'Orari' },
+  { href: '#dove',      label: 'Dove siamo' },
+];
+---
+<nav id="main-nav" aria-label="Navigazione principale">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Cielo Azzurro - Home">
+      <span class="logo-zh">天藍</span>
+      <span class="logo-text">Cielo Azzurro</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      {links.map(l => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+    </ul>
+
+    <a href="tel:+393394195587" class="btn btn-primary nav-cta" aria-label="Chiama il ristorante">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      Prenota
+    </a>
+
+    <button id="burger" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" role="dialog" aria-label="Menu mobile">
+    <ul role="list">
+      {links.map(l => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+      <li>
+        <a href="tel:+393394195587" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">
+          📞 Prenota un Tavolo
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 24px;
+    transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  nav.scrolled {
+    background: rgba(9,9,15,.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 24px;
+    box-shadow: 0 1px 0 rgba(58,149,229,.15);
+  }
+
+  .nav-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .logo-zh {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    border: 1.5px solid var(--border);
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: .05em;
+  }
+  .logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: .06em;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+    margin-left: auto;
+  }
+  .nav-links a {
+    font-size: .88rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: rgba(244,239,230,.72);
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: color .25s, background .25s;
+  }
+  .nav-links a:hover {
+    color: var(--gold);
+    background: var(--gold-dim);
+  }
+
+  .nav-cta { font-size: .82rem; padding: 10px 22px; }
+
+  /* Burger */
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    margin-left: auto;
+  }
+  .burger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: var(--trans);
+  }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile menu */
+  #mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(9,9,15,.97);
+    backdrop-filter: blur(20px);
+    padding: 100px 32px 40px;
+    flex-direction: column;
+  }
+  #mobile-menu.open { display: flex; }
+  #mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  #mobile-menu a {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cream);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    display: block;
+    transition: color .2s;
+  }
+  #mobile-menu a:hover { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .burger { display: flex; }
+  }
+</style>
+

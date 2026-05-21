@@ -1,0 +1,285 @@
+﻿---
+---
+<section class="hero" id="hero" aria-label="Hero">
+  <!-- Decorative background -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-glow glow-1"></div>
+    <div class="hero-glow glow-2"></div>
+    <div class="grid-overlay"></div>
+    <div class="pattern-overlay"></div>
+  </div>
+
+  <!-- Floating badges -->
+  <div class="badge-tl" aria-hidden="true">
+    <span class="kanji">寿</span>
+  </div>
+  <div class="badge-br" aria-hidden="true">
+    <span class="kanji">喜</span>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-pre animate-fade-up d1">- Cuneo, Corso Nizza 92 -</p>
+
+    <h1 class="hero-title animate-fade-up d2">
+      <span class="hero-zh">天藍餐廳</span>
+      <span class="hero-name">Cielo<br/><em>Azzurro</em></span>
+    </h1>
+
+    <p class="hero-sub animate-fade-up d3">
+      Cucina cinese &amp; giapponese autentica.<br/>
+      <span>Da oltre 25 anni il gusto dell'Asia nel cuore del Piemonte.</span>
+    </p>
+
+    <div class="hero-rating animate-fade-up d4" aria-label="Valutazione 4.3 su 5 basata su oltre 1000 recensioni">
+      <span class="stars" aria-hidden="true">★★★★½</span>
+      <strong>4.3</strong>
+      <span class="rating-sep">·</span>
+      <span>1.000+ recensioni Google</span>
+    </div>
+
+    <div class="hero-ctas animate-fade-up d5">
+      <a href="tel:+393394195587" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+        Prenota un Tavolo
+      </a>
+      <a href="#cucina" class="btn btn-outline">Scopri il Menu</a>
+    </div>
+
+    <div class="hero-chips animate-fade-up d5">
+      <span class="chip">🍱 All You Can Eat</span>
+      <span class="chip">🍣 Sushi bar</span>
+      <span class="chip">🚚 Consegna a domicilio</span>
+      <span class="chip">🌿 Opzioni vegetariane</span>
+    </div>
+  </div>
+
+  <a href="#chi-siamo" class="scroll-down" aria-label="Scorri verso il basso">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 120px 24px 80px;
+  }
+
+  /* Background layers */
+  .hero-bg { position: absolute; inset: 0; z-index: 0; }
+
+  .hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .glow-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(58,149,229,.18) 0%, transparent 70%);
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    animation: pulse-glow 6s ease-in-out infinite;
+  }
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(181,37,37,.12) 0%, transparent 70%);
+    bottom: 60px; right: -80px;
+    animation: pulse-glow 8s ease-in-out infinite reverse;
+  }
+
+  .grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(58,149,229,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58,149,229,.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .pattern-overlay {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(9,9,15,0) 0%, rgba(9,9,15,.6) 100%),
+      radial-gradient(ellipse at 50% 100%, rgba(9,9,15,.8) 0%, transparent 70%);
+  }
+
+  /* Kanji badges */
+  .badge-tl, .badge-br {
+    position: absolute;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+  }
+  .badge-tl { top: 80px; left: 5%; animation-delay: 0s; }
+  .badge-br { bottom: 100px; right: 5%; animation-delay: -3s; }
+  .kanji {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px; height: 64px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: rgba(58,149,229,.35);
+    backdrop-filter: blur(8px);
+    background: rgba(22,22,31,.4);
+  }
+
+  /* Content */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .hero-pre {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-zh {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    letter-spacing: .5em;
+    color: rgba(58,149,229,.55);
+    margin-bottom: 10px;
+  }
+  .hero-name {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--cream);
+    letter-spacing: -.01em;
+    margin-bottom: 28px;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(244,239,230,.6);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .hero-sub span { color: rgba(244,239,230,.4); font-size: .95em; }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .9rem;
+    color: rgba(244,239,230,.5);
+    margin-bottom: 36px;
+  }
+  .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+  .hero-rating strong { color: var(--cream); font-size: 1.05rem; }
+  .rating-sep { color: var(--border); }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .chip {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: rgba(244,239,230,.55);
+    background: rgba(22,22,31,.8);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    backdrop-filter: blur(8px);
+    transition: color .25s, border-color .25s;
+  }
+  .chip:hover { color: var(--gold); border-color: rgba(58,149,229,.5); }
+
+  /* Scroll caret */
+  .scroll-down {
+    position: absolute;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--gold);
+    animation: bounce 2.4s ease-in-out infinite;
+    transition: background .25s;
+  }
+  .scroll-down:hover { background: var(--gold-dim); }
+
+  /* Animations */
+  @keyframes pulse-glow {
+    0%,100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    50%      { opacity: .6; transform: translateX(-50%) scale(1.1); }
+  }
+  .glow-2 { animation-name: pulse-glow2; }
+  @keyframes pulse-glow2 {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .5; }
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .animate-fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fade-up .8s ease forwards;
+  }
+  @keyframes fade-up {
+    to { opacity: 1; transform: none; }
+  }
+  .d1 { animation-delay: .1s; }
+  .d2 { animation-delay: .25s; }
+  .d3 { animation-delay: .45s; }
+  .d4 { animation-delay: .6s; }
+  .d5 { animation-delay: .75s; }
+
+  @media (max-width: 600px) {
+    .badge-tl, .badge-br { display: none; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .hero-ctas .btn { width: 100%; max-width: 280px; justify-content: center; }
+  }
+</style>
+

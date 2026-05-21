@@ -1,0 +1,187 @@
+---
+const features = [
+  { icon: '♾️', title: 'Illimitato', desc: 'Ordina quanto vuoi scegliendo liberamente dal menu.' },
+  { icon: '🍣', title: 'Sushi incluso', desc: 'Salmone, tonno, California roll e molto altro, tutti i giorni.' },
+  { icon: '🥢', title: 'Piatti caldi', desc: 'Wok, fritture, zuppe: la cucina cinese a portata di bacchette.' },
+  { icon: '🌿', title: 'Opzioni Veg', desc: 'Ampia scelta di piatti vegetariani e vegani.' },
+];
+---
+<section id="ayce" class="ayce-section" aria-labelledby="ayce-title">
+  <div class="ayce-bg" aria-hidden="true">
+    <div class="ayce-glow"></div>
+    <div class="ayce-grid"></div>
+  </div>
+
+  <div class="container">
+    <div class="ayce-inner">
+      <div class="ayce-text">
+        <p class="section-label reveal">Formula speciale</p>
+        <h2 class="section-title reveal d1" id="ayce-title">
+          All You Can <span>Eat</span>
+        </h2>
+        <div class="gold-line reveal d2"></div>
+        <p class="section-desc reveal d2">
+          Vivi l'esperienza culinaria più libera che esista: scegli dal menu completo e ordina
+          senza limiti. Perfetto per famiglie, gruppi di amici o semplicemente per chi ama
+          mangiare bene senza pensieri.
+        </p>
+
+        <div class="price-boxes reveal d3">
+          <div class="price-box">
+            <span class="price-label">Pranzo</span>
+            <span class="price-val">da <strong>12€</strong></span>
+            <span class="price-sub">Mar-Dom · 12:15-15:00</span>
+          </div>
+          <div class="price-box featured">
+            <span class="price-label">Cena</span>
+            <span class="price-val">da <strong>18€</strong></span>
+            <span class="price-sub">Mar-Dom · 18:30-23:30</span>
+          </div>
+        </div>
+
+        <a href="tel:+393394195587" class="btn btn-primary reveal d4" style="margin-top:32px;width:fit-content;">
+          Prenota per l'All You Can Eat
+        </a>
+      </div>
+
+      <div class="ayce-features reveal reveal-right d2">
+        {features.map(f => (
+          <div class="feature-item">
+            <span class="feature-icon" aria-hidden="true">{f.icon}</span>
+            <div>
+              <h3 class="feature-title">{f.title}</h3>
+              <p class="feature-desc">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+
+        <div class="ayce-badge">
+          <span class="badge-icon" aria-hidden="true">⭐</span>
+          <div>
+            <p class="badge-strong">Consigliato dai clienti</p>
+            <p class="badge-sub">"Ottimo rapporto qualità-prezzo"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ayce-section {
+    position: relative;
+    background: var(--bg-up);
+    overflow: hidden;
+  }
+  .ayce-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .ayce-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(181,37,37,.12) 0%, transparent 70%);
+    filter: blur(80px);
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+  }
+  .ayce-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(58,149,229,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58,149,229,.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .ayce-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  /* Price boxes */
+  .price-boxes {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .price-box {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: border-color var(--trans);
+  }
+  .price-box.featured {
+    border-color: rgba(58,149,229,.5);
+    background: linear-gradient(135deg, rgba(58,149,229,.08), rgba(22,22,31,1));
+  }
+  .price-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .price-val {
+    font-size: 1.3rem;
+    color: var(--cream);
+  }
+  .price-val strong { color: var(--gold); font-family: 'Cinzel', serif; font-size: 1.6rem; }
+  .price-sub { font-size: .78rem; color: var(--muted); }
+
+  /* Feature list */
+  .ayce-features {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .feature-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .feature-icon {
+    font-size: 1.8rem;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gold-dim);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    flex-shrink: 0;
+  }
+  .feature-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .feature-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+  .ayce-badge {
+    margin-top: 8px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .badge-icon { font-size: 1.4rem; }
+  .badge-strong { font-weight: 700; font-size: .92rem; color: var(--gold); }
+  .badge-sub { font-size: .82rem; color: var(--muted); font-style: italic; }
+
+  @media (max-width: 900px) {
+    .ayce-inner { grid-template-columns: 1fr; gap: 48px; }
+  }
+</style>
+

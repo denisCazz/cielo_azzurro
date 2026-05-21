@@ -1,0 +1,204 @@
+---
+const days = [
+  { day: 'Lunedì',    lunch: null,            dinner: null,            closed: true  },
+  { day: 'Martedì',   lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+  { day: 'Mercoledì', lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+  { day: 'Giovedì',   lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+  { day: 'Venerdì',   lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+  { day: 'Sabato',    lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+  { day: 'Domenica',  lunch: '12:15 - 15:00', dinner: '18:30 - 23:30', closed: false },
+];
+
+const contacts = [
+  { icon: '📞', label: 'Telefono',  value: '339 419 5587',            href: 'tel:+393394195587' },
+  { icon: '📍', label: 'Indirizzo', value: 'Corso Nizza, 92 · Cuneo', href: 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo' },
+  { icon: '🚚', label: 'Delivery',  value: 'Disponibile tramite app',  href: null },
+];
+---
+<section id="orari" class="hours-section" aria-labelledby="hours-title">
+  <div class="container">
+    <div class="hours-grid">
+      <div class="hours-col">
+        <p class="section-label reveal">Vieni a trovarci</p>
+        <h2 class="section-title reveal d1" id="hours-title">
+          Orari &amp; <span>Contatti</span>
+        </h2>
+        <div class="gold-line reveal d2"></div>
+        <p class="section-desc reveal d2" style="margin-bottom:40px;">
+          Siamo aperti dal martedì alla domenica, a pranzo e a cena. Il lunedì siamo chiusi per
+          darci il tempo di prepararci al meglio per voi.
+        </p>
+
+        <div class="contacts reveal d3">
+          {contacts.map(c => (
+            <div class="contact-item">
+              <span class="contact-icon" aria-hidden="true">{c.icon}</span>
+              <div>
+                <p class="contact-label">{c.label}</p>
+                {c.href
+                  ? <a href={c.href} class="contact-value link">{c.value}</a>
+                  : <p class="contact-value">{c.value}</p>
+                }
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="hours-col reveal reveal-right d1">
+        <div class="hours-card">
+          <div class="hours-card-header">
+            <span class="hch-icon" aria-hidden="true">🕐</span>
+            <h3>Orari di apertura</h3>
+          </div>
+          <ul class="hours-list" role="list">
+            {days.map(d => {
+              const isToday = new Date().toLocaleDateString('it-IT', { weekday: 'long' }).toLowerCase() === d.day.toLowerCase();
+              return (
+                <li class={`hours-row${d.closed ? ' closed' : ''}${isToday ? ' today' : ''}`}>
+                  <span class="h-day">
+                    {isToday && <span class="today-dot" aria-label="oggi"></span>}
+                    {d.day}
+                    {isToday && <span class="today-badge">oggi</span>}
+                  </span>
+                  {d.closed
+                    ? <span class="h-closed">Chiuso</span>
+                    : <span class="h-times">
+                        <span>{d.lunch}</span>
+                        <span class="h-sep">·</span>
+                        <span>{d.dinner}</span>
+                      </span>
+                  }
+                </li>
+              );
+            })}
+          </ul>
+          <div class="delivery-note">
+            🚚 <strong>Delivery</strong> disponibile · termina alle 23:00
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hours-section { background: var(--bg-up); }
+
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  .contacts { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    font-size: 1.4rem;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gold-dim);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    flex-shrink: 0;
+  }
+  .contact-label { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .contact-value { font-size: .97rem; color: var(--cream); font-weight: 400; }
+  .contact-value.link { color: var(--gold); transition: color .2s; }
+  .contact-value.link:hover { color: var(--gold-lt); }
+
+  /* Hours card */
+  .hours-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .hours-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(58,149,229,.05);
+  }
+  .hch-icon { font-size: 1.3rem; }
+  .hours-card-header h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .hours-list { list-style: none; }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    transition: background .2s;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row:hover { background: rgba(255,255,255,.025); }
+
+  .hours-row.today {
+    background: rgba(58,149,229,.07);
+    border-left: 2px solid var(--gold);
+  }
+  .hours-row.closed { opacity: .4; }
+
+  .h-day {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+  .today-dot {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .today-badge {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: rgba(58,149,229,.2);
+    color: var(--gold);
+    padding: 2px 6px;
+    border-radius: 100px;
+  }
+
+  .h-times {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: .82rem;
+    color: var(--muted);
+  }
+  .h-sep { color: var(--border); }
+  .h-closed { font-size: .82rem; color: var(--red-lt); font-weight: 700; letter-spacing: .06em; }
+
+  .delivery-note {
+    padding: 16px 28px;
+    background: rgba(58,149,229,.06);
+    border-top: 1px solid var(--border);
+    font-size: .85rem;
+    color: var(--muted);
+  }
+  .delivery-note strong { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .hours-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+</style>
+
