@@ -2,11 +2,21 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  imageAlt?: string;
 }
+
 const {
   title = 'Cielo Azzurro - Ristorante Cinese & Sushi | Cuneo',
   description = 'Ristorante Cielo Azzurro a Cuneo. Cucina cinese e giapponese, sushi, all you can eat. Da oltre 25 anni in Corso Nizza 92.',
+  image = '/images/interno.webp',
+  imageAlt = 'Interno del ristorante Cielo Azzurro a Cuneo',
 } = Astro.props;
+
+const site = Astro.site ?? new URL('https://cieloazzurrocuneo.it');
+const canonicalURL = new URL(Astro.url.pathname, site);
+const ogImageURL = new URL(image, site);
+const siteName = 'Cielo Azzurro';
 ---
 <!doctype html>
 <html lang="it">
@@ -15,22 +25,48 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <slot />
     <script>
-      const observer = new IntersectionObserver(
-        (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
-        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-      );
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      const showReveal = (el) => el.classList.add('visible');
+
+      if (prefersReducedMotion) {
+        revealElements.forEach(showReveal);
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => entries.forEach(e => e.isIntersecting && showReveal(e.target)),
+          { threshold: 0.06, rootMargin: '0px 0px -16px 0px' }
+        );
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) showReveal(el);
+          observer.observe(el);
+        });
+      }
 
       const nav = document.getElementById('main-nav');
       window.addEventListener('scroll', () => {
@@ -40,20 +76,48 @@ const {
       const burger = document.getElementById('burger');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuClose = document.getElementById('mobile-menu-close');
-      const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+      const mobileMenuPanel = document.querySelector('.mobile-menu-panel');
+      let savedScrollY = 0;
+
+      const lockPageScroll = () => {
+        savedScrollY = window.scrollY;
+        document.documentElement.classList.add('menu-open');
+        document.body.classList.add('menu-open');
+        document.body.style.top = `-${savedScrollY}px`;
+      };
+
+      const unlockPageScroll = () => {
+        document.documentElement.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
+        document.body.style.top = '';
+        window.scrollTo(0, savedScrollY);
+      };
+
+      const preventBackgroundScroll = (event) => {
+        if (!mobileMenu?.classList.contains('open')) return;
+        const target = event.target;
+        if (target instanceof Node && mobileMenuPanel?.contains(target)) {
+          const panel = mobileMenuPanel;
+          const canScroll = panel.scrollHeight > panel.clientHeight;
+          if (canScroll) return;
+        }
+        event.preventDefault();
+      };
+
+      document.addEventListener('touchmove', preventBackgroundScroll, { passive: false });
 
       const closeMobileMenu = () => {
         if (!mobileMenu || !burger) return;
         mobileMenu.classList.remove('open');
         burger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        unlockPageScroll();
       };
 
       const openMobileMenu = () => {
         if (!mobileMenu || !burger) return;
+        lockPageScroll();
         mobileMenu.classList.add('open');
         burger.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
       };
 
       burger?.addEventListener('click', () => {
@@ -63,7 +127,6 @@ const {
       });
 
       mobileMenuClose?.addEventListener('click', closeMobileMenu);
-      mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
 
       window.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') closeMobileMenu();
@@ -112,6 +175,19 @@ const {
     font-size: 16px;
     line-height: 1.75;
     overflow-x: clip;
+  }
+
+  html.menu-open,
+  body.menu-open {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body.menu-open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
   }
 
   h1,h2,h3,h4 { font-family: 'Cinzel', serif; line-height: 1.2; }
@@ -186,6 +262,25 @@ const {
   .reveal-left  { opacity: 0; transform: translateX(-44px); transition: opacity .7s ease, transform .7s ease; }
   .reveal-right { opacity: 0; transform: translateX( 44px); transition: opacity .7s ease, transform .7s ease; }
   .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    .reveal {
+      transform: translateY(22px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal-left  { transform: translateX(-22px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal-right { transform: translateX(22px);  transition: opacity .5s ease, transform .5s ease; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
   .d1 { transition-delay: .1s; }
   .d2 { transition-delay: .2s; }
   .d3 { transition-delay: .3s; }

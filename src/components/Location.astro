@@ -1,4 +1,5 @@
 ---
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5486741337455!2d7.541752!3d44.389097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d2b5b2a3b73a0d%3A0x2f3e6c8b4e2a1c5d!2sCorso%20Nizza%2C%2092%2C%2012100%20Cuneo%20CN!5e0!3m2!1sit!2sit!4v1700000000000';
 ---
 <section id="dove" aria-labelledby="location-title">
   <div class="container">
@@ -11,14 +12,12 @@
     </div>
 
     <div class="loc-grid">
-      <div class="map-wrap reveal d2">
-        <iframe
-          title="Mappa Ristorante Cielo Azzurro Cuneo"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5486741337455!2d7.541752!3d44.389097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d2b5b2a3b73a0d%3A0x2f3e6c8b4e2a1c5d!2sCorso%20Nizza%2C%2092%2C%2012100%20Cuneo%20CN!5e0!3m2!1sit!2sit!4v1700000000000"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          aria-label="Posizione del ristorante su Google Maps"
-        ></iframe>
+      <div class="map-wrap reveal d2" id="map-wrap" data-map-src={mapSrc}>
+        <button type="button" class="map-placeholder" id="map-load-btn" aria-label="Carica mappa interattiva">
+          <span class="map-placeholder-icon" aria-hidden="true">📍</span>
+          <span class="map-placeholder-title">Corso Nizza, 92 · Cuneo</span>
+          <span class="map-placeholder-cta">Tocca per caricare la mappa</span>
+        </button>
       </div>
 
       <div class="loc-info reveal reveal-right d2">
@@ -88,8 +87,43 @@
   }
   .map-wrap iframe {
     width: 100%; height: 100%;
+    border: 0;
     filter: invert(90%) hue-rotate(180deg);
   }
+
+  .map-placeholder {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background:
+      radial-gradient(circle at 30% 35%, rgba(58,149,229,.18), transparent 55%),
+      linear-gradient(160deg, #12121c, #09090f);
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px;
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+  }
+  .map-placeholder-icon { font-size: 2rem; }
+  .map-placeholder-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .map-placeholder-cta {
+    font-size: .82rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .map-wrap.is-loaded .map-placeholder { display: none; }
 
   .loc-info {
     display: flex;
@@ -128,4 +162,29 @@
     .map-wrap { height: 280px; }
   }
 </style>
+
+<script>
+  const mapWrap = document.getElementById('map-wrap');
+  const mapBtn = document.getElementById('map-load-btn');
+  const mapSrc = mapWrap?.dataset.mapSrc;
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+  const loadMap = () => {
+    if (!mapWrap || !mapSrc || mapWrap.classList.contains('is-loaded')) return;
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Mappa Ristorante Cielo Azzurro Cuneo';
+    iframe.src = mapSrc;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.setAttribute('aria-label', 'Posizione del ristorante su Google Maps');
+    mapWrap.appendChild(iframe);
+    mapWrap.classList.add('is-loaded');
+  };
+
+  if (isMobile) {
+    mapBtn?.addEventListener('click', loadMap);
+  } else {
+    loadMap();
+  }
+</script>
 

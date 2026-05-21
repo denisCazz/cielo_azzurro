@@ -28,7 +28,15 @@ const photos = [
     <div class="gallery-grid">
       {photos.map((photo, i) => (
         <figure class={`gallery-card reveal d${(i % 2) + 1}`}>
-          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            width="800"
+            height="600"
+            sizes="(max-width: 900px) 100vw, 50vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
           <figcaption>{photo.title}</figcaption>
         </figure>
       ))}
