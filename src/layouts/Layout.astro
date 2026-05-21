@@ -39,15 +39,42 @@ const {
 
       const burger = document.getElementById('burger');
       const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+
+      const closeMobileMenu = () => {
+        if (!mobileMenu || !burger) return;
+        mobileMenu.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      const openMobileMenu = () => {
+        if (!mobileMenu || !burger) return;
+        mobileMenu.classList.add('open');
+        burger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      };
+
       burger?.addEventListener('click', () => {
-        const open = mobileMenu?.classList.toggle('open');
-        burger.setAttribute('aria-expanded', String(open));
+        const isOpen = mobileMenu?.classList.contains('open');
+        if (isOpen) closeMobileMenu();
+        else openMobileMenu();
       });
+
+      mobileMenuClose?.addEventListener('click', closeMobileMenu);
+      mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMobileMenu();
+      });
+
       mobileMenu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-          burger?.setAttribute('aria-expanded', 'false');
-        });
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) closeMobileMenu();
       });
     </script>
   </body>
@@ -73,7 +100,10 @@ const {
     --trans:     .35s cubic-bezier(.4,0,.2,1);
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
 
   body {
     background: var(--bg);
@@ -81,7 +111,7 @@ const {
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     line-height: 1.75;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   h1,h2,h3,h4 { font-family: 'Cinzel', serif; line-height: 1.2; }

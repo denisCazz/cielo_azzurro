@@ -158,7 +158,30 @@ const stats = [
 
   @media (max-width: 900px) {
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .about-visual { height: 320px; order: -1; }
+    .about-visual {
+      height: auto;
+      order: -1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .visual-card { position: relative; }
+    .main-card {
+      width: 100%;
+      height: auto;
+      min-height: 250px;
+      top: auto;
+      right: auto;
+      padding: 24px;
+    }
+    .accent-card {
+      width: 100%;
+      left: auto;
+      bottom: auto;
+      padding: 16px 18px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+    }
+    .visual-decor { display: none; }
     .about-stats { grid-template-columns: repeat(4,1fr); }
   }
   @media (max-width: 600px) {
