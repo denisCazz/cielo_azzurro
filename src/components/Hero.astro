@@ -1,33 +1,24 @@
 ﻿---
 ---
 <section class="hero" id="hero" aria-label="Hero">
-  <!-- Decorative background -->
   <div class="hero-bg" aria-hidden="true">
-    <div class="hero-glow glow-1"></div>
-    <div class="hero-glow glow-2"></div>
-    <div class="grid-overlay"></div>
-    <div class="pattern-overlay"></div>
-  </div>
-
-  <!-- Floating badges -->
-  <div class="badge-tl" aria-hidden="true">
-    <span class="kanji">寿</span>
-  </div>
-  <div class="badge-br" aria-hidden="true">
-    <span class="kanji">喜</span>
+    <img
+      src="/images/sushi-hero.jpg"
+      alt=""
+      class="hero-image"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="hero-overlay"></div>
   </div>
 
   <div class="hero-content">
-    <p class="hero-pre">- Cuneo, Corso Nizza 92 -</p>
+    <p class="hero-pre">— Cuneo, Corso Nizza 92 —</p>
 
-    <h1 class="hero-title">
-      <span class="hero-zh">天藍餐廳</span>
-      <span class="hero-name">Cielo<br/><em>Azzurro</em></span>
-    </h1>
-
-    <p class="hero-sub">
-      Cucina cinese &amp; giapponese autentica.<br/>
-      <span>Da oltre 25 anni il gusto dell'Asia nel cuore del Piemonte.</span>
+    <p class="hero-lead">
+      Da oltre 25 anni il gusto dell'Asia nel cuore del Piemonte.
     </p>
 
     <div class="hero-rating" aria-label="Valutazione 4.3 su 5 basata su oltre 1000 recensioni">
@@ -44,7 +35,7 @@
         </svg>
         Prenota un Tavolo
       </a>
-      <a href="#cucina" class="btn btn-outline">Scopri il Menu</a>
+      <a href="/menu" class="btn btn-outline">Scopri il Menu</a>
     </div>
 
     <div class="hero-chips">
@@ -74,78 +65,34 @@
     padding: 120px 24px 80px;
   }
 
-  /* Background layers */
-  .hero-bg { position: absolute; inset: 0; z-index: 0; }
-
-  .hero-glow {
+  .hero-bg {
     position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.85;
-  }
-  .glow-1 {
-    width: 520px; height: 520px;
-    background: radial-gradient(circle, rgba(58,149,229,.2) 0%, transparent 68%);
-    top: -80px; left: 50%;
-    transform: translateX(-50%);
-  }
-  .glow-2 {
-    width: 360px; height: 360px;
-    background: radial-gradient(circle, rgba(181,37,37,.1) 0%, transparent 68%);
-    bottom: 60px; right: -80px;
-    opacity: 0.7;
+    inset: 0;
+    z-index: 0;
   }
 
-  .grid-overlay {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(58,149,229,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(58,149,229,.04) 1px, transparent 1px);
-    background-size: 60px 60px;
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
-  .pattern-overlay {
-    position: absolute; inset: 0;
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(9,9,15,0) 0%, rgba(9,9,15,.6) 100%),
-      radial-gradient(ellipse at 50% 100%, rgba(9,9,15,.8) 0%, transparent 70%);
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.72) 50%, rgba(10, 10, 10, 0.88) 100%),
+      linear-gradient(135deg, rgba(181, 37, 37, 0.25) 0%, transparent 60%);
   }
 
-  /* Kanji badges */
-  .badge-tl, .badge-br {
-    position: absolute;
-    z-index: 1;
-  }
-
-  @media (min-width: 901px) {
-    .badge-tl, .badge-br {
-      animation: float 8s ease-in-out infinite;
-    }
-  }
-  .badge-tl { top: 80px; left: 5%; animation-delay: 0s; }
-  .badge-br { bottom: 100px; right: 5%; animation-delay: -3s; }
-  .kanji {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px; height: 64px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
-    color: rgba(58,149,229,.35);
-    background: rgba(22,22,31,.55);
-  }
-
-  /* Content */
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: 720px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
     animation: hero-enter 0.55s ease-out both;
   }
 
@@ -161,57 +108,45 @@
   }
 
   .hero-pre {
-    font-size: .78rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: .28em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
-  .hero-zh {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    letter-spacing: .5em;
-    color: rgba(58,149,229,.55);
-    margin-bottom: 10px;
-  }
-  .hero-name {
-    display: block;
-    font-family: 'Cinzel', Georgia, 'Times New Roman', serif;
-    font-size: clamp(3.5rem, 9vw, 7rem);
-    font-weight: 900;
-    line-height: 1.0;
-    color: var(--cream);
-    letter-spacing: -.01em;
-    margin-bottom: 28px;
-    min-height: 1.05em;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: rgba(244,239,230,.6);
+  .hero-lead {
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    color: rgba(255, 255, 255, 0.92);
     line-height: 1.7;
     margin-bottom: 28px;
+    max-width: 540px;
   }
-  .hero-sub span { color: rgba(244,239,230,.4); font-size: .95em; }
 
   .hero-rating {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: .9rem;
-    color: rgba(244,239,230,.5);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
     margin-bottom: 36px;
   }
-  .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
-  .hero-rating strong { color: var(--cream); font-size: 1.05rem; }
-  .rating-sep { color: var(--border); }
+
+  .stars {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-rating strong {
+    color: var(--cream);
+    font-size: 1.05rem;
+  }
+
+  .rating-sep {
+    color: var(--border);
+  }
 
   .hero-ctas {
     display: flex;
@@ -227,55 +162,65 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .chip {
-    font-size: .78rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: .04em;
-    color: rgba(244,239,230,.55);
-    background: rgba(22,22,31,.8);
-    border: 1px solid var(--border);
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(10, 10, 10, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 100px;
     padding: 6px 14px;
-    transition: color .25s, border-color .25s;
+    backdrop-filter: blur(8px);
+    transition: color 0.25s, border-color 0.25s;
   }
-  .chip:hover { color: var(--gold); border-color: rgba(58,149,229,.5); }
 
-  /* Scroll caret */
+  .chip:hover {
+    color: var(--cream);
+    border-color: var(--gold);
+  }
+
   .scroll-down {
     position: absolute;
-    bottom: 32px; left: 50%;
+    bottom: 32px;
+    left: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    width: 40px; height: 40px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid var(--border);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    color: var(--gold);
+    color: var(--cream);
     animation: bounce 2.4s ease-in-out infinite;
-    transition: background .25s;
+    transition: background 0.25s;
   }
-  .scroll-down:hover { background: var(--gold-dim); }
 
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-14px); }
+  .scroll-down:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    color: var(--gold);
   }
 
   @keyframes bounce {
-    0%,100% { transform: translateX(-50%) translateY(0); }
-    50%      { transform: translateX(-50%) translateY(8px); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
   }
 
   @media (max-width: 768px) {
-    .glow-1 { width: 280px; height: 280px; }
-    .glow-2 { width: 200px; height: 200px; }
-    .hero-content { animation-duration: 0.4s; }
+    .hero-content {
+      animation-duration: 0.4s;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .badge-tl,
-    .badge-br,
-    .scroll-down { animation: none; }
+    .scroll-down {
+      animation: none;
+    }
+
     .hero-content {
       opacity: 1;
       transform: none;
@@ -284,11 +229,23 @@
   }
 
   @media (max-width: 600px) {
-    .badge-tl, .badge-br { display: none; }
-    .hero { padding: 100px 20px 72px; }
-    .hero-ctas { flex-direction: column; align-items: center; }
-    .hero-ctas .btn { width: 100%; max-width: 280px; justify-content: center; }
-    .scroll-down { display: none; }
+    .hero {
+      padding: 100px 20px 72px;
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-ctas .btn {
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+
+    .scroll-down {
+      display: none;
+    }
   }
 </style>
-
