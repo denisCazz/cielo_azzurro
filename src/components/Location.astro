@@ -1,5 +1,7 @@
 ---
-const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5486741337455!2d7.541752!3d44.389097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12d2b5b2a3b73a0d%3A0x2f3e6c8b4e2a1c5d!2sCorso%20Nizza%2C%2092%2C%2012100%20Cuneo%20CN!5e0!3m2!1sit!2sit!4v1700000000000';
+const mapEmbedSrc =
+  'https://maps.google.com/maps?q=Corso+Nizza+92,+12100+Cuneo+CN&hl=it&z=17&output=embed';
+const mapsLink = 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo';
 ---
 <section id="dove" aria-labelledby="location-title">
   <div class="container">
@@ -12,12 +14,19 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
     </div>
 
     <div class="loc-grid">
-      <div class="map-wrap reveal d2" id="map-wrap" data-map-src={mapSrc}>
-        <button type="button" class="map-placeholder" id="map-load-btn" aria-label="Carica mappa interattiva">
-          <span class="map-placeholder-icon" aria-hidden="true">📍</span>
-          <span class="map-placeholder-title">Corso Nizza, 92 · Cuneo</span>
-          <span class="map-placeholder-cta">Tocca per caricare la mappa</span>
-        </button>
+      <div
+        class="map-wrap reveal d2"
+        id="map-wrap"
+        data-map-src={mapEmbedSrc}
+      >
+        <div class="map-fallback" id="map-fallback">
+          <span class="map-fallback-icon" aria-hidden="true">📍</span>
+          <p class="map-fallback-title">Corso Nizza, 92 · Cuneo</p>
+          <p class="map-fallback-sub">12100 Cuneo (CN)</p>
+          <button type="button" class="btn btn-primary map-load-btn" id="map-load-btn">
+            Mostra mappa interattiva
+          </button>
+        </div>
       </div>
 
       <div class="loc-info reveal reveal-right d2">
@@ -48,7 +57,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
 
         <div class="loc-ctas">
           <a
-            href="https://maps.google.com/?q=Corso+Nizza+92+Cuneo"
+            href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
             class="btn btn-primary"
@@ -67,9 +76,14 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
 </section>
 
 <style>
-  #dove { background: var(--bg); }
+  #dove {
+    background: var(--bg);
+  }
 
-  .loc-header { max-width: 560px; margin-bottom: 56px; }
+  .loc-header {
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
 
   .loc-grid {
     display: grid;
@@ -83,9 +97,10 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
     overflow: hidden;
     border: 1px solid var(--border);
     position: relative;
-    min-height: 480px;
-    height: 100%;
-    display: flex;
+    width: 100%;
+    min-height: 360px;
+    aspect-ratio: 16 / 10;
+    background: #f5f5f5;
   }
 
   .map-wrap iframe {
@@ -94,50 +109,76 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
     width: 100%;
     height: 100%;
     border: 0;
-    filter: invert(90%) hue-rotate(180deg);
+    display: block;
+    background: #f5f5f5;
   }
 
-  .map-placeholder {
+  .map-fallback {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    background:
-      radial-gradient(circle at 30% 35%, rgba(196,30,58,.18), transparent 55%),
-      linear-gradient(160deg, #12121c, #09090f);
-    color: var(--cream);
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     padding: 24px;
-    cursor: pointer;
     text-align: center;
-    font-family: inherit;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 245, 245, 0.98)),
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 24px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.03) 0,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 24px
+      );
+    transition: opacity 0.25s ease, visibility 0.25s ease;
   }
-  .map-placeholder-icon { font-size: 2rem; }
-  .map-placeholder-title {
+
+  .map-fallback-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .map-fallback-title {
     font-family: 'Cinzel', serif;
     font-size: 1.05rem;
     font-weight: 700;
-  }
-  .map-placeholder-cta {
-    font-size: .82rem;
-    color: var(--gold);
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
+    color: #111111;
   }
 
-  .map-wrap.is-loaded .map-placeholder { display: none; }
+  .map-fallback-sub {
+    font-size: 0.88rem;
+    color: #555555;
+    margin-bottom: 8px;
+  }
+
+  .map-load-btn {
+    margin-top: 4px;
+    font-size: 0.82rem;
+    padding: 12px 20px;
+  }
+
+  .map-wrap.is-loaded .map-fallback {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 
   .loc-info {
     display: flex;
     flex-direction: column;
     gap: 28px;
   }
+
   .info-item {
     display: flex;
     gap: 16px;
@@ -145,19 +186,45 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
     padding-bottom: 28px;
     border-bottom: 1px solid var(--border);
   }
-  .info-item:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+  .info-item:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
   .info-icon {
     font-size: 1.3rem;
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--gold-dim);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     flex-shrink: 0;
   }
-  .info-label { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-  .info-val { font-size: .97rem; font-weight: 700; color: var(--cream); margin-bottom: 2px; }
-  .info-sub { font-size: .82rem; color: var(--muted); }
+
+  .info-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .info-val {
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+
+  .info-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
 
   .loc-ctas {
     display: flex;
@@ -167,7 +234,9 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
 
   @media (min-width: 901px) {
     .map-wrap {
-      min-height: 560px;
+      min-height: 520px;
+      aspect-ratio: auto;
+      height: 100%;
     }
   }
 
@@ -179,8 +248,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
 
     .map-wrap {
       min-height: 0;
-      height: 320px;
-      display: block;
+      aspect-ratio: 4 / 3;
     }
   }
 </style>
@@ -189,24 +257,41 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.54867
   const mapWrap = document.getElementById('map-wrap');
   const mapBtn = document.getElementById('map-load-btn');
   const mapSrc = mapWrap?.dataset.mapSrc;
-  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  let mapLoaded = false;
 
   const loadMap = () => {
-    if (!mapWrap || !mapSrc || mapWrap.classList.contains('is-loaded')) return;
+    if (!mapWrap || !mapSrc || mapLoaded) return;
+    mapLoaded = true;
+
     const iframe = document.createElement('iframe');
     iframe.title = 'Mappa Ristorante Cielo Azzurro Cuneo';
     iframe.src = mapSrc;
     iframe.loading = 'lazy';
     iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.setAttribute('allowfullscreen', '');
     iframe.setAttribute('aria-label', 'Posizione del ristorante su Google Maps');
+
+    iframe.addEventListener('load', () => {
+      mapWrap.classList.add('is-loaded');
+    });
+
     mapWrap.appendChild(iframe);
-    mapWrap.classList.add('is-loaded');
   };
 
-  if (isMobile) {
-    mapBtn?.addEventListener('click', loadMap);
+  mapBtn?.addEventListener('click', loadMap);
+
+  if (mapWrap && mapSrc && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMap();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '120px 0px', threshold: 0.01 }
+    );
+    observer.observe(mapWrap);
   } else {
     loadMap();
   }
 </script>
-
