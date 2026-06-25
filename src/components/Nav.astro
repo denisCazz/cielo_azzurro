@@ -57,14 +57,24 @@ const links = [
     top: 0; left: 0; right: 0;
     z-index: 1000;
     padding: 16px 24px;
-    transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
+    background: #000000;
+    transition: background .35s ease, padding .35s ease, box-shadow .35s ease;
   }
+
+  nav:hover {
+    background: #0a0a0a;
+    box-shadow: 0 4px 24px rgba(196, 30, 58, 0.18);
+  }
+
   nav.scrolled {
-    background: rgba(10,10,10,.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: #000000;
     padding: 10px 24px;
-    box-shadow: 0 1px 0 rgba(196,30,58,.2);
+    box-shadow: 0 1px 0 rgba(196, 30, 58, 0.35);
+  }
+
+  nav.scrolled:hover {
+    background: #0d0d0d;
+    box-shadow: 0 4px 28px rgba(196, 30, 58, 0.22);
   }
 
   .nav-inner {
@@ -103,9 +113,14 @@ const links = [
     font-family: 'Cinzel', serif;
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--cream);
+    color: var(--gold);
     letter-spacing: .06em;
     line-height: 1.2;
+    transition: color .25s;
+  }
+
+  .nav-logo:hover .logo-text {
+    color: var(--gold-lt);
   }
 
   .logo-tagline {
@@ -114,7 +129,7 @@ const links = [
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.72);
     line-height: 1.2;
   }
 
@@ -128,17 +143,30 @@ const links = [
     font-size: .88rem;
     font-weight: 700;
     letter-spacing: .06em;
-    color: rgba(255,255,255,.72);
+    color: var(--gold);
     padding: 8px 14px;
     border-radius: 6px;
     transition: color .25s, background .25s;
   }
+
   .nav-links a:hover {
-    color: var(--gold);
-    background: var(--gold-dim);
+    color: #ffffff;
+    background: var(--gold);
   }
 
-  .nav-cta { font-size: .82rem; padding: 10px 22px; }
+  .nav-cta {
+    font-size: .82rem;
+    padding: 10px 22px;
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(196, 30, 58, 0.35);
+  }
 
   /* Burger */
   .burger {
@@ -154,7 +182,7 @@ const links = [
   .burger span {
     display: block;
     width: 24px; height: 2px;
-    background: var(--cream);
+    background: var(--gold);
     border-radius: 2px;
     transition: var(--trans);
   }
@@ -200,8 +228,8 @@ const links = [
   .mobile-menu-close {
     align-self: flex-end;
     background: transparent;
-    border: 1px solid var(--border);
-    color: var(--cream);
+    border: 1px solid var(--gold);
+    color: var(--gold);
     border-radius: 999px;
     padding: 8px 14px;
     font-size: .8rem;
@@ -211,11 +239,13 @@ const links = [
     cursor: pointer;
     margin-bottom: 40px;
     flex-shrink: 0;
+    transition: background .25s, color .25s;
   }
+
   .mobile-menu-close:hover {
     border-color: var(--gold);
-    color: var(--gold);
-    background: var(--gold-dim);
+    color: #ffffff;
+    background: var(--gold);
   }
 
   .mobile-menu-links {
@@ -255,13 +285,18 @@ const links = [
     font-family: 'Cinzel', serif;
     font-size: clamp(1.35rem, 5vw, 1.75rem);
     font-weight: 600;
-    color: var(--cream);
+    color: var(--gold);
     padding: 16px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(196, 30, 58, 0.25);
     display: block;
-    transition: color .2s;
+    transition: color .2s, background .2s, padding .2s;
   }
-  .mobile-menu-links a:hover { color: var(--gold); }
+
+  .mobile-menu-links a:hover {
+    color: #ffffff;
+    background: rgba(196, 30, 58, 0.15);
+    padding-left: 12px;
+  }
 
   .mobile-menu-cta {
     width: 100%;
@@ -284,8 +319,10 @@ const links = [
 
   @media (max-width: 900px) {
     nav,
-    nav.scrolled {
-      background: rgba(10,10,10,.96);
+    nav.scrolled,
+    nav:hover,
+    nav.scrolled:hover {
+      background: #000000;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
