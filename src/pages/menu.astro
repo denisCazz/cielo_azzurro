@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Menu from '../components/Menu.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="Menu - Cielo Azzurro | Ristorante Cinese & Sushi Cuneo"
+  description="Menu completo del Ristorante Cielo Azzurro a Cuneo. Antipasti, sushi, piatti principali cinesi e giapponesi con prezzi."
+>
+  <Nav />
+  <main id="main-content">
+    <section class="menu-page-hero" aria-labelledby="menu-page-title">
+      <div class="container">
+        <p class="section-label">Cielo Azzurro</p>
+        <h1 id="menu-page-title" class="menu-page-title">Il nostro <span>menu</span></h1>
+        <div class="gold-line"></div>
+        <p class="section-desc">
+          Cucina giapponese e cinese · Prezzi indicativi, possono variare
+        </p>
+      </div>
+    </section>
+    <Menu variant="full" />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .menu-page-hero {
+    padding: 140px 24px 40px;
+    background: var(--bg-up);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .menu-page-title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+
+  .menu-page-title span {
+    color: var(--gold);
+  }
+
+  @media (max-width: 768px) {
+    .menu-page-hero {
+      padding: 120px 20px 32px;
+    }
+  }
+</style>

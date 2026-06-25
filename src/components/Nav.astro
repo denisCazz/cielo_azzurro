@@ -1,17 +1,20 @@
 ﻿---
 const links = [
-  { href: '#chi-siamo', label: 'Chi siamo' },
-  { href: '#cucina',    label: 'Cucina' },
-  { href: '#ayce',      label: 'All You Can Eat' },
-  { href: '#orari',     label: 'Orari' },
-  { href: '#dove',      label: 'Dove siamo' },
+  { href: '/#chi-siamo', label: 'Chi siamo' },
+  { href: '/menu',       label: 'Menu' },
+  { href: '/#ayce',      label: 'All You Can Eat' },
+  { href: '/#orari',     label: 'Orari' },
+  { href: '/#dove',      label: 'Dove siamo' },
 ];
 ---
 <nav id="main-nav" aria-label="Navigazione principale">
   <div class="nav-inner">
     <a href="/" class="nav-logo" aria-label="Cielo Azzurro - Home">
       <span class="logo-zh">天藍</span>
-      <span class="logo-text">Cielo Azzurro</span>
+      <span class="logo-stack">
+        <span class="logo-text">Cielo Azzurro</span>
+        <span class="logo-tagline">Cucina giapponese e cinese</span>
+      </span>
     </a>
 
     <ul class="nav-links" role="list">
@@ -53,15 +56,15 @@ const links = [
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    padding: 20px 24px;
+    padding: 16px 24px;
     transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
   }
   nav.scrolled {
-    background: rgba(9,9,15,.92);
+    background: rgba(10,10,10,.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    padding: 12px 24px;
-    box-shadow: 0 1px 0 rgba(58,149,229,.15);
+    padding: 10px 24px;
+    box-shadow: 0 1px 0 rgba(196,30,58,.2);
   }
 
   .nav-inner {
@@ -78,6 +81,13 @@ const links = [
     gap: 10px;
     flex-shrink: 0;
   }
+
+  .logo-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .logo-zh {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
@@ -86,13 +96,26 @@ const links = [
     padding: 3px 7px;
     border-radius: 4px;
     letter-spacing: .05em;
+    align-self: flex-start;
   }
+
   .logo-text {
     font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--cream);
     letter-spacing: .06em;
+    line-height: 1.2;
+  }
+
+  .logo-tagline {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.2;
   }
 
   .nav-links {
@@ -105,7 +128,7 @@ const links = [
     font-size: .88rem;
     font-weight: 700;
     letter-spacing: .06em;
-    color: rgba(244,239,230,.72);
+    color: rgba(255,255,255,.72);
     padding: 8px 14px;
     border-radius: 6px;
     transition: color .25s, background .25s;
@@ -262,18 +285,16 @@ const links = [
   @media (max-width: 900px) {
     nav,
     nav.scrolled {
-      background: rgba(9,9,15,.96);
+      background: rgba(10,10,10,.96);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
-    nav { padding: 14px 14px; }
-    nav.scrolled { padding: 10px 14px; }
+    nav { padding: 12px 14px; }
+    nav.scrolled { padding: 8px 14px; }
     .nav-inner { gap: 12px; }
     .logo-zh { font-size: .92rem; padding: 2px 6px; }
-    .logo-text {
-      font-size: .86rem;
-      white-space: nowrap;
-    }
+    .logo-text { font-size: .86rem; }
+    .logo-tagline { font-size: .6rem; }
     .mobile-menu-panel { padding: max(16px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom)); }
     .mobile-menu-close { padding: 7px 12px; font-size: .74rem; margin-bottom: 28px; }
     .nav-links, .nav-cta { display: none; }
@@ -283,6 +304,6 @@ const links = [
   @media (max-width: 420px) {
     .logo-zh { display: none; }
     .logo-text { font-size: .82rem; }
+    .logo-tagline { font-size: .58rem; letter-spacing: 0.08em; }
   }
 </style>
-
