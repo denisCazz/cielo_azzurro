@@ -1,7 +1,7 @@
 ---
-const mapEmbedSrc =
-  'https://maps.google.com/maps?q=Corso+Nizza+92,+12100+Cuneo+CN&hl=it&z=17&output=embed';
 const mapsLink = 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo';
+const osmEmbedSrc =
+  'https://www.openstreetmap.org/export/embed.html?bbox=7.5318%2C44.3858%2C7.5472%2C44.3918&layer=mapnik&marker=44.3888%2C7.5395';
 ---
 <section id="dove" aria-labelledby="location-title">
   <div class="container">
@@ -13,64 +13,67 @@ const mapsLink = 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo';
       <div class="gold-line reveal d2"></div>
     </div>
 
-    <div class="loc-grid">
-      <div
-        class="map-wrap reveal d2"
-        id="map-wrap"
-        data-map-src={mapEmbedSrc}
+    <div class="map-stage">
+      <iframe
+        title="Mappa Ristorante Cielo Azzurro Cuneo"
+        src={osmEmbedSrc}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+        aria-label="Posizione del ristorante su mappa interattiva"
+      ></iframe>
+      <a
+        href={mapsLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="map-open-link"
+        aria-label="Apri su Google Maps in una nuova scheda"
       >
-        <div class="map-fallback" id="map-fallback">
-          <span class="map-fallback-icon" aria-hidden="true">📍</span>
-          <p class="map-fallback-title">Corso Nizza, 92 · Cuneo</p>
-          <p class="map-fallback-sub">12100 Cuneo (CN)</p>
-          <button type="button" class="btn btn-primary map-load-btn" id="map-load-btn">
-            Mostra mappa interattiva
-          </button>
+        Apri in Google Maps ↗
+      </a>
+    </div>
+
+    <div class="loc-details">
+      <div class="info-item reveal d1">
+        <span class="info-icon" aria-hidden="true">📍</span>
+        <div>
+          <p class="info-label">Indirizzo</p>
+          <p class="info-val">Corso Nizza, 92</p>
+          <p class="info-sub">12100 Cuneo (CN) · Piemonte</p>
         </div>
       </div>
-
-      <div class="loc-info reveal reveal-right d2">
-        <div class="info-item">
-          <span class="info-icon" aria-hidden="true">📍</span>
-          <div>
-            <p class="info-label">Indirizzo</p>
-            <p class="info-val">Corso Nizza, 92</p>
-            <p class="info-sub">12100 Cuneo (CN) · Piemonte</p>
-          </div>
-        </div>
-        <div class="info-item">
-          <span class="info-icon" aria-hidden="true">🚗</span>
-          <div>
-            <p class="info-label">In auto</p>
-            <p class="info-val">Parcheggio disponibile nelle vicinanze</p>
-            <p class="info-sub">Corso Nizza è facilmente raggiungibile dal centro</p>
-          </div>
-        </div>
-        <div class="info-item">
-          <span class="info-icon" aria-hidden="true">🚌</span>
-          <div>
-            <p class="info-label">Con i mezzi</p>
-            <p class="info-val">Fermata autobus nelle vicinanze</p>
-            <p class="info-sub">Servito dalle linee urbane di Cuneo</p>
-          </div>
-        </div>
-
-        <div class="loc-ctas">
-          <a
-            href={mapsLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary"
-            aria-label="Apri indicazioni su Google Maps (nuova scheda)"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/>
-            </svg>
-            Indicazioni su Maps
-          </a>
-          <a href="tel:+393394195587" class="btn btn-outline">📞 Chiama</a>
+      <div class="info-item reveal d2">
+        <span class="info-icon" aria-hidden="true">🚗</span>
+        <div>
+          <p class="info-label">In auto</p>
+          <p class="info-val">Parcheggio disponibile nelle vicinanze</p>
+          <p class="info-sub">Corso Nizza è facilmente raggiungibile dal centro</p>
         </div>
       </div>
+      <div class="info-item reveal d3">
+        <span class="info-icon" aria-hidden="true">🚌</span>
+        <div>
+          <p class="info-label">Con i mezzi</p>
+          <p class="info-val">Fermata autobus nelle vicinanze</p>
+          <p class="info-sub">Servito dalle linee urbane di Cuneo</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="loc-ctas reveal d3">
+      <a
+        href={mapsLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        aria-label="Apri indicazioni su Google Maps (nuova scheda)"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/>
+        </svg>
+        Indicazioni su Maps
+      </a>
+      <a href="tel:+393394195587" class="btn btn-outline">📞 Chiama</a>
     </div>
   </div>
 </section>
@@ -82,114 +85,65 @@ const mapsLink = 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo';
 
   .loc-header {
     max-width: 560px;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
   }
 
-  .loc-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 380px;
-    gap: 40px;
-    align-items: stretch;
-  }
-
-  .map-wrap {
+  .map-stage {
+    position: relative;
+    width: 100%;
+    height: clamp(380px, 58vw, 620px);
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--border);
-    position: relative;
-    width: 100%;
-    min-height: 360px;
-    aspect-ratio: 16 / 10;
-    background: #f5f5f5;
+    background: #e8e8e8;
+    margin-bottom: 32px;
   }
 
-  .map-wrap iframe {
-    position: absolute;
-    inset: 0;
+  .map-stage iframe {
+    display: block;
     width: 100%;
     height: 100%;
     border: 0;
-    display: block;
-    background: #f5f5f5;
   }
 
-  .map-fallback {
+  .map-open-link {
     position: absolute;
-    inset: 0;
+    right: 16px;
+    bottom: 16px;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 24px;
-    text-align: center;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 245, 245, 0.98)),
-      repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.03) 0,
-        rgba(0, 0, 0, 0.03) 1px,
-        transparent 1px,
-        transparent 24px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.03) 0,
-        rgba(0, 0, 0, 0.03) 1px,
-        transparent 1px,
-        transparent 24px
-      );
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-  }
-
-  .map-fallback-icon {
-    font-size: 2rem;
-    line-height: 1;
-  }
-
-  .map-fallback-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.05rem;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.82);
+    color: #ffffff;
+    font-size: 0.78rem;
     font-weight: 700;
-    color: #111111;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
 
-  .map-fallback-sub {
-    font-size: 0.88rem;
-    color: #555555;
-    margin-bottom: 8px;
+  .map-open-link:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #ffffff;
   }
 
-  .map-load-btn {
-    margin-top: 4px;
-    font-size: 0.82rem;
-    padding: 12px 20px;
-  }
-
-  .map-wrap.is-loaded .map-fallback {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .loc-info {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  .loc-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
   }
 
   .info-item {
     display: flex;
     gap: 16px;
     align-items: flex-start;
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .info-item:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
   }
 
   .info-icon {
@@ -232,66 +186,13 @@ const mapsLink = 'https://maps.google.com/?q=Corso+Nizza+92+Cuneo';
     flex-wrap: wrap;
   }
 
-  @media (min-width: 901px) {
-    .map-wrap {
-      min-height: 520px;
-      aspect-ratio: auto;
-      height: 100%;
-    }
-  }
-
   @media (max-width: 900px) {
-    .loc-grid {
-      grid-template-columns: 1fr;
-      align-items: start;
+    .map-stage {
+      height: clamp(320px, 72vw, 460px);
     }
 
-    .map-wrap {
-      min-height: 0;
-      aspect-ratio: 4 / 3;
+    .loc-details {
+      grid-template-columns: 1fr;
     }
   }
 </style>
-
-<script>
-  const mapWrap = document.getElementById('map-wrap');
-  const mapBtn = document.getElementById('map-load-btn');
-  const mapSrc = mapWrap?.dataset.mapSrc;
-  let mapLoaded = false;
-
-  const loadMap = () => {
-    if (!mapWrap || !mapSrc || mapLoaded) return;
-    mapLoaded = true;
-
-    const iframe = document.createElement('iframe');
-    iframe.title = 'Mappa Ristorante Cielo Azzurro Cuneo';
-    iframe.src = mapSrc;
-    iframe.loading = 'lazy';
-    iframe.referrerPolicy = 'no-referrer-when-downgrade';
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('aria-label', 'Posizione del ristorante su Google Maps');
-
-    iframe.addEventListener('load', () => {
-      mapWrap.classList.add('is-loaded');
-    });
-
-    mapWrap.appendChild(iframe);
-  };
-
-  mapBtn?.addEventListener('click', loadMap);
-
-  if (mapWrap && mapSrc && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          loadMap();
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '120px 0px', threshold: 0.01 }
-    );
-    observer.observe(mapWrap);
-  } else {
-    loadMap();
-  }
-</script>
